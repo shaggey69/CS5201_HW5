@@ -45,10 +45,10 @@ MyArray<T>::~MyArray()
 
 //object getter []
 template <typename T>   
-T & MyArray<T>::operator[](const int index) 
+T & MyArray<T>::operator[](const int index) const
 {
 	if (index < 0 || index >= m_size) 
-	throw std::out_of_range("index out of range!");
+		throw std::out_of_range("index out of range!");
 	return ptr_to_data[index];
 }
 
@@ -82,7 +82,7 @@ MyArray<T>&  MyArray<T>::operator= (const MyArray<T>& rhs)
 {
 	if (ptr_to_data != rhs.ptr_to_data)
 	{
-		m_size = rhs.m_size;
+		setSize(rhs.m_size);
 		arrayCopy(rhs);
 	}
 	return (*this);
@@ -112,10 +112,14 @@ void MyArray<T>::insert(const T & x, int pos)
 template <typename T>   
 void MyArray<T>::arrayCopy(const MyArray<T> & source)
 {
+
 	T* p = ptr_to_data + m_size;
 	T* q = source.ptr_to_data + m_size;
+
 	while (p > ptr_to_data)
-		*--p = * --q ;
+		*--p = *--q ;
+	return;
+
 }
 
 //streamer
@@ -123,6 +127,8 @@ template <typename T>
 ostream& operator<< (ostream& out , MyArray<T> & arr)
 {
 	for (int i = 0; i < arr.getSize() ; i++)
+	{	
 		out << arr[i] << endl;
+	}
 	return out;
 }

@@ -115,7 +115,7 @@ public:
   * \return Will return the value of T at the index 
   */
 
-	T & operator[](const int index);
+	T & operator[](const int index) const;
 
   /*! get size!
   *

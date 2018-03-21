@@ -22,21 +22,35 @@ class Matrix
 
 		void clear();
 
+		T sumRow(const int row) const;
+
+		T sumCol(const int col) const;
+
 	public:
 
 		Matrix (); 
 
 		Matrix (const int n);
 
-		Matrix (const Matrix & rhs);
-
-		MyArray<T> & operator[](const int i);
+		Matrix (const Matrix<T> & rhs);
 
 		~Matrix();
 
+		Matrix<T>& operator= (const Matrix<T>& rhs);  
+
+		Matrix<T> operator+(const Matrix<T> & rhs) const;
+
+		Matrix<T> operator*(const Matrix<T> & rhs) const;
+
+		MyArray<T> operator*(const MyArray<T> & rhs) const;
+
+		MyArray<T> & operator[](const int i);
+
+		void switchRows (const int i, const int j);
+
+		int getSize(){return m_size;};
+
 		friend ostream& operator<< <T> (ostream& out ,  Matrix<T> & mat);
-
-
 };
 
 #include "matrix.hpp"
