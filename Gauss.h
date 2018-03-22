@@ -27,5 +27,6 @@ class Gauss
 		void operator()(const matrix<T> mat, const myArray<T> vec) const;
 };
 
+
 #include "Gauss.hpp"
 #endif

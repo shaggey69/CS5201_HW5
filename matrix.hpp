@@ -46,8 +46,6 @@ Matrix<T>& Matrix<T>::operator= (const Matrix<T>& rhs)
  	return *this;
 }
 
-
-
 template <typename T>   
 void Matrix<T>::clear()
 {
@@ -127,6 +125,28 @@ void Matrix<T>::switchRows(const int i, const int j)
 	m_matrix[i] = m_matrix [j];
 	m_matrix[j] =temp;
 
+}
+
+template <typename T>   
+void Matrix<T>::sortRows(const int i)
+{
+	/*
+	vector<T> temp ;
+
+	for (int k = 0 ; k < m_size ; k++)
+		temp.push_back(m_matrix[k][i]);
+
+	sort(temp.begin(),temp.end(),Compare<T>());
+	
+	for (int j = 0 ; j < m_size ; j++)
+		m_matrix[j][i] = temp[j];
+	*/
+
+	T max = 0;
+	for (int k = 0 ; k < m_size ; k++)
+		if (max > m_matrix[k][i])
+			max = m_matrix[k][i];
+	switchRows(,)
 }
 
 template <typename T>   

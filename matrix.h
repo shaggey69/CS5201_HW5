@@ -1,6 +1,8 @@
 #ifndef MATRIX_H
 #define MATRIX_H
 #include "myArray.h"
+#include <vector>
+#include <algorithm>
 
 
 template <typename T>
@@ -48,9 +50,27 @@ class Matrix
 
 		void switchRows (const int i, const int j);
 
+		void sortRows(const int i);
+
 		int getSize(){return m_size;};
 
 		friend ostream& operator<< <T> (ostream& out ,  Matrix<T> & mat);
+};
+
+
+template <typename T>
+class Compare
+{
+	public:
+		/*! The () Operator
+		*	returns true if lhs is bigger then rhs
+		* \pre '<' operator defind for T! 
+		* \post none
+		*/
+		bool operator() (const T lhs, const T rhs) const
+		{
+			return (lhs) > (rhs);
+		}
 };
 
 #include "matrix.hpp"
