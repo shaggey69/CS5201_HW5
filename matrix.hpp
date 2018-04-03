@@ -8,6 +8,8 @@ Matrix<T>::Matrix()
 template <typename T>   
 Matrix<T>::Matrix (const int n)
 {
+	if (n < 0)
+		throw std::length_error("size must be greater then zero");
 	m_size = n;
 	m_matrix.setSize(n);
 	for (int i = 0 ; i < m_size ; i++)
@@ -50,29 +52,15 @@ template <typename T>
 void Matrix<T>::clear()
 {
 	m_size = 0;
-}
-
-template <typename T>   
-T Matrix<T>::sumRow(const int row) const
-{
-	T sum = 0;
-	for (int i = 0 ; i < m_size ; i++)
-		sum += m_matrix[row][i];
-	return sum;
-}
-
-template <typename T>   
-T Matrix<T>::sumCol(const int col) const
-{
-	T sum = 0;
-	for (int i = 0 ; i < m_size ; i++)
-		sum += m_matrix[i][col];
-	return sum;
+	return;
 }
 
 template <typename T>   
 Matrix<T> Matrix<T>::operator+(const Matrix<T> & rhs) const
 {
+	if (rhs.m_size != m_size) 
+		throw std::length_error("matrix must be of equel length"); 
+
 	Matrix<T> retVal(m_size);
 	for (int i = 0 ; i < m_size ; i++)
 		for (int j = 0 ; j < m_size ; j++)
@@ -81,8 +69,22 @@ Matrix<T> Matrix<T>::operator+(const Matrix<T> & rhs) const
 }
 
 template <typename T>   
+Matrix<T> Matrix<T>::operator-(const Matrix<T> & rhs) const
+{
+	if (rhs.m_size != m_size) 
+		throw std::length_error("matrix must be of equel length"); 
+	Matrix<T> retVal(m_size);
+	for (int i = 0 ; i < m_size ; i++)
+		for (int j = 0 ; j < m_size ; j++)
+			retVal[i][j]= m_matrix[i][j]-rhs.m_matrix[i][j];
+	return retVal;
+}
+
+template <typename T>   
 Matrix<T> Matrix<T>::operator*(const Matrix<T> & rhs) const
 {
+	if (rhs.m_size != m_size) 
+		throw std::length_error("matrix must be of equel length"); 
 	T sum = 0;
 	Matrix<T> retVal(m_size);
 	for (int i = 0 ; i < (m_size) ; i++)
@@ -99,6 +101,8 @@ Matrix<T> Matrix<T>::operator*(const Matrix<T> & rhs) const
 template <typename T>   
 MyArray<T>  Matrix<T>::operator*(const MyArray<T> & rhs) const
 {
+	if (rhs.getSize() != m_size) 
+		throw std::length_error("matrix and vector must be of equel length"); 
 	T sum = 0;
 	MyArray<T> retVal(m_size);
 	for (int i = 0 ; i < (m_size) ; i++)
@@ -111,8 +115,20 @@ MyArray<T>  Matrix<T>::operator*(const MyArray<T> & rhs) const
 	return retVal;
 }
 
+
 template <typename T>   
-MyArray<T> & Matrix<T>::operator[](const int i)
+void Matrix<T>::scalerMulti(const T scaler)
+{
+	for (int i = 0 ; i < m_size ; i++)
+		for (int j = 0 ; j < m_size ; j++)
+			m_matrix[i][j]= scaler*m_matrix[i][j];
+	return;
+}
+
+
+
+template <typename T>   
+MyArray<T> & Matrix<T>::operator[](const int i) const
 {
 	return m_matrix[i];
 }
@@ -124,29 +140,34 @@ void Matrix<T>::switchRows(const int i, const int j)
 	temp = m_matrix[i];
 	m_matrix[i] = m_matrix [j];
 	m_matrix[j] =temp;
-
+	return;
 }
 
+
 template <typename T>   
-void Matrix<T>::sortRows(const int i)
+void Matrix<T>::setSize(int s)
 {
-	/*
-	vector<T> temp ;
+	m_size = s;
+	m_matrix.setSize(s);
+	for (int i = 0 ; i < m_size ; i++)
+	{
+		m_matrix[i].setSize(s);
+	}
+	return;
+}
 
-	for (int k = 0 ; k < m_size ; k++)
-		temp.push_back(m_matrix[k][i]);
 
-	sort(temp.begin(),temp.end(),Compare<T>());
-	
-	for (int j = 0 ; j < m_size ; j++)
-		m_matrix[j][i] = temp[j];
-	*/
-
-	T max = 0;
-	for (int k = 0 ; k < m_size ; k++)
-		if (max > m_matrix[k][i])
-			max = m_matrix[k][i];
-	switchRows(,)
+template <typename T>   
+void Matrix<T>::transpose()
+{
+	for (int i = 0 ; i < m_size-1 ; i++)
+		for (int j = i+1 ; j < m_size ; j++)
+		{
+		 	T temp =	m_matrix[i][j];
+		 	m_matrix[i][j] = m_matrix[j][i];
+		 	m_matrix[j][i] = temp;
+		}
+	return;
 }
 
 template <typename T>   
@@ -155,7 +176,9 @@ ostream& operator<<(ostream& out ,  Matrix<T> & mat)
 	for (int i = 0 ; i < mat.m_size ; i++)
 	{
 		for (int j = 0 ; j < mat.m_size ; j++)
+		{
 			out << mat.m_matrix[i][j] << " ";
+		}
 		out << endl;
 	}
 	return out;
