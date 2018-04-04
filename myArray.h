@@ -60,7 +60,8 @@ public:
   
    /*! initialize constructor.
   * A new Array is craeted length equel "size"
-  * \pre size must be bigger then 0!
+  * \pre size must be bigger then 0! Will throw a
+  * a length Error otherwise
   * \post a MyArray is born!
   *
   */
@@ -95,7 +96,7 @@ public:
   *
   */
 
-  MyArray(MyArray && rhs) : ptr_to_data(rhs.ptr_to_data), m_size(rhs.m_size)
+  MyArray(MyArray && rhs) :  m_size(rhs.m_size), ptr_to_data(rhs.ptr_to_data)
   {rhs.ptr_to_data = nullptr; rhs.m_size = 0; }
 
   /*! deconstructor.
@@ -110,7 +111,8 @@ public:
 
   /*! object getter []
   *
-  * \pre index must be between 0 and m_size
+  * \pre index must be between 0 and m_size, Will throw a
+  * a length Error otherwise
   * \post none
   * \return Will return the value of T at the index 
   */
@@ -129,7 +131,8 @@ public:
 
   /*! set size!
   *
-  * \pre n must be postive
+  * \pre n must be postive, Will throw a
+  * a length Error otherwise
   * \post none
   */
 
@@ -165,7 +168,8 @@ public:
 
    /*! insert
   * insert T elment into Array at the "pos" index
-  * \pre pos must be smaller then m_size!
+  * \pre pos must be smaller then m_size! Will throw a
+  * a length Error otherwise
   * \post array modified with new element
   */
   

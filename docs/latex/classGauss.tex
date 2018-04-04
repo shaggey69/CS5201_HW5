@@ -1,0 +1,43 @@
+\hypertarget{classGauss}{}\section{Gauss$<$ T $>$ Class Template Reference}
+\label{classGauss}\index{Gauss$<$ T $>$@{Gauss$<$ T $>$}}
+
+
+{\ttfamily \#include $<$Gauss.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classMyArray}{My\+Array}$<$ T $>$ \hyperlink{classGauss_a26c6cb82642023d213f05723f23af627}{operator()} (const \hyperlink{classMatrix}{Matrix}$<$ T $>$ \&mat, const \hyperlink{classMyArray}{My\+Array}$<$ T $>$ \&vec) const 
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$typename T$>$\\*
+class Gauss$<$ T $>$}
+
+the \hyperlink{classGauss}{Gauss} solver calculation class 
+
+\subsection{Member Function Documentation}
+\index{Gauss@{Gauss}!operator()@{operator()}}
+\index{operator()@{operator()}!Gauss@{Gauss}}
+\subsubsection[{\texorpdfstring{operator()(const Matrix$<$ T $>$ \&mat, const My\+Array$<$ T $>$ \&vec) const }{operator()(const Matrix< T > &mat, const MyArray< T > &vec) const }}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T $>$ {\bf My\+Array}$<$ T $>$ {\bf Gauss}$<$ T $>$\+::operator() (
+\begin{DoxyParamCaption}
+\item[{const {\bf Matrix}$<$ T $>$ \&}]{mat, }
+\item[{const {\bf My\+Array}$<$ T $>$ \&}]{vec}
+\end{DoxyParamCaption}
+) const}\hypertarget{classGauss_a26c6cb82642023d213f05723f23af627}{}\label{classGauss_a26c6cb82642023d213f05723f23af627}
+Operator () calculator! \textbackslash{} Calcultes the \hyperlink{classGauss}{Gauss} algorthem for the Ax=b eqation. A is the mat \hyperlink{classMatrix}{Matrix}. b Is the vec \hyperlink{classMyArray}{My\+Array}. \begin{DoxyPrecond}{Precondition}
+\char`\"{}-\/\char`\"{} binary operator defiend for T pre \char`\"{}$\ast$\char`\"{} binary operator defiend for T 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+A new \hyperlink{classMyArray}{My\+Array} is born 
+\end{DoxyPostcond}
+\begin{DoxyReturn}{Returns}
+a new Array with the calculated results. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{Gauss_8h}{Gauss.\+h}\item 
+Gauss.\+hpp\end{DoxyCompactItemize}

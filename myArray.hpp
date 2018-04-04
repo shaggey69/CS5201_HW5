@@ -1,8 +1,8 @@
 /*
 # myArray class functoins
 # By: Ari Sherman
-# Class: CS5201 HW #4
-# Date: 3.12.18
+# Class: CS5201 HW #5
+# Date: 4.4.18
 */
 #include <iostream>
 #include <stdexcept>

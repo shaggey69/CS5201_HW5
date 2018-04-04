@@ -4,7 +4,7 @@
  */
 
 /*
-# myArray class header
+# Matrix class header
 # By: Ari Sherman
 # Class: CS5201 HW #5
 # Date: 4.4.18
@@ -38,7 +38,7 @@ ostream& operator<< (ostream& out ,  Matrix<T> & mat);
  * Reprents a NxN Matrix
  * contains a:
  * m_size - represting the size of N
- * m_matrix - an Array of Arrays
+ * m_matrix - an myArray of myArrays represting the matrix
  */
 
 template <class T>
@@ -57,7 +57,7 @@ class Matrix
 	   /*! defult constructor.
 	  * A new Matrix is craeted with N equals 0. 
 	  * \pre none
-	  * \post a MyArray is born!
+	  * \post a Matrix is born!
 	  *
 	  */
 
@@ -66,7 +66,8 @@ class Matrix
 	   /*! initialize constructor.
 	  * A new Matrix is craeted with dimensions
 	  * equel to "n"
-	  * \pre size must be bigger then 0!
+	  * \pre size must be bigger then 0! Will throw a
+	  * a length Error otherwise
 	  * \post a Matrix is born!
 	  *
 	  */
@@ -110,12 +111,13 @@ class Matrix
 	  */
 
 		Matrix(Matrix && rhs) : m_matrix(rhs.m_matrix), m_size(rhs.m_size)
-		{rhs.m_matrix = nullptr; rhs.m_size = 0; }
+		{ rhs.m_size = 0; }
 
 		/*! + operator
 	  * adds the sum of CO to rhs, retures a new Matrix 
 	  * with the calculated values
-	  * \pre size of CO must be equel to rhs. "+" binary operator
+	  * \pre size of CO must be equel to rhs, Will throw a
+	  * a length Error otherwise. "+" binary operator
 	  * must be defiend for T.
 	  * \post a matrix is born!
 	  */
@@ -126,7 +128,8 @@ class Matrix
 		/*! - operator
 	  * caclualtes the differnce of CO to rhs, retures a new Matrix 
 	  * with the calculated values
-	  * \pre size of CO must be equel to rhs. "-" binary operator
+	  * \pre size of CO must be equel to rhs, Will throw a
+	  * a length Error otherwise. "-" binary operator
 	  * must be defiend for T.
 	  * \post a matrix is born!
 	  */
@@ -136,7 +139,8 @@ class Matrix
 		/*! Matrix multiplication
 	  * caclualtes the multiplication of 2 matrixs and returens
 	  * a new matrix with the calculated values
-	  * \pre size of CO must be equel to rhs. "*" binary operator
+	  * \pre size of CO must be equel to rhs, Will throw a
+	  * a length Error otherwise. "*" binary operator
 	  * must be defiend for T.
 	  * \post a matrix is born!
 	  */
@@ -146,7 +150,8 @@ class Matrix
 		/*! Matrix - Vector  multiplication
 	  * caclualtes the multiplication of 2 of a Matrix with an Array
 	  * and returens a new Vector with the calculated values
-	  * \pre size of CO must be equel to rhs array size!. "*" binary operator
+	  * \pre size of CO must be equel to rhs array size! Will throw a
+	  * a length Error otherwise. "*" binary operator
 	  * must be defiend for T.
 	  * \post a Vector is born!
 	  */
@@ -155,7 +160,8 @@ class Matrix
 
 		/*! object getter []
 	  *
-	  * \pre i must be between 0 and m_size
+	  * \pre 0 < i < size, will throw a
+	  * a length Error otherwise
 	  * \post none
 	  * \return Will return the MyArray at index i.
 	  */
@@ -172,11 +178,12 @@ class Matrix
 		void scalerMulti(const T scaler);
 
 		/*! Row switcher
-	 	* switches the array at index i with array at index j and
-	 	* vice versa
-	  * \pre  0 < i,j < m_size 
-	  * \post none
-	  */
+		* switches the array at index i with array at index j and
+		* vice versa
+		* \pre  0 < i,j < m_size, will throw a
+	  * a length Error otherwise 
+		* \post none
+		*/
 
 		void switchRows (const int i, const int j);
 
@@ -199,9 +206,13 @@ class Matrix
 
 		void setSize(int s);
 
+	/*! Matrix transpose calculator
+	  * Creates a new matrix with is a trasposed version of the CO
+	  * \pre none
+	  * \post a Matrix is born
+	  */
 
-
-		void transpose();
+		Matrix<T> transpose() const;
 
 		/*! Stream insertion operator for `Matrix`.
 		 *
@@ -215,10 +226,16 @@ class Matrix
 		friend ostream& operator<< <T> (ostream& out ,  Matrix<T> & mat);
 };
 
-
+/*! The compare Class.
+ */
 template <typename T>
 class Compare
 {
+	/*! The () Operator
+	*	returns true if lhs < rhs
+	* \pre '<' operator defind for T! 
+	* \post none
+	*/
 	public:
 		bool operator() (const tuple <T,int> lhs, const tuple <T,int> rhs) const
 		{

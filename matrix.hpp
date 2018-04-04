@@ -1,3 +1,10 @@
+/*
+# Matrix function implments 
+# By: Ari Sherman
+# Class: CS5201 HW #5
+# Date: 4.4.18
+*/
+
 template <typename T>   
 Matrix<T>::Matrix()
 {
@@ -91,8 +98,8 @@ Matrix<T> Matrix<T>::operator*(const Matrix<T> & rhs) const
 		for (int j = 0 ; j < (m_size) ; j++)
 		{ 
 			for (int k = 0 ; k < (m_size) ; k++)
-				sum += m_matrix[k][i]*rhs.m_matrix[j][k];
-			retVal[j][i] = sum;
+				sum += m_matrix[i][k]*rhs.m_matrix[k][j];
+			retVal[i][j] = sum;
 			sum = 0;
 		}			
 	return retVal;
@@ -130,12 +137,16 @@ void Matrix<T>::scalerMulti(const T scaler)
 template <typename T>   
 MyArray<T> & Matrix<T>::operator[](const int i) const
 {
+	if (i < 0 || i >= m_size) 
+		throw std::length_error("matrix must be of equel length"); 	
 	return m_matrix[i];
 }
 
 template <typename T>   
 void Matrix<T>::switchRows(const int i, const int j)
 {
+	if (i < 0 || i >= m_size || j < 0 || j >= m_size )
+		throw std::length_error("matrix must be of equel length"); 
 	MyArray<T> temp;
 	temp = m_matrix[i];
 	m_matrix[i] = m_matrix [j];
@@ -158,16 +169,14 @@ void Matrix<T>::setSize(int s)
 
 
 template <typename T>   
-void Matrix<T>::transpose()
+Matrix<T> Matrix<T>::transpose() const
 {
-	for (int i = 0 ; i < m_size-1 ; i++)
-		for (int j = i+1 ; j < m_size ; j++)
-		{
-		 	T temp =	m_matrix[i][j];
-		 	m_matrix[i][j] = m_matrix[j][i];
-		 	m_matrix[j][i] = temp;
-		}
-	return;
+	Matrix<T> retVal(m_size);
+
+	for (int i = 0 ; i < m_size ; i++)
+		for (int j = 0 ; j < m_size ; j++)
+		 	retVal.m_matrix[i][j] =	m_matrix[j][i];
+	return retVal;
 }
 
 template <typename T>   

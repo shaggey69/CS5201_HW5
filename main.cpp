@@ -4,14 +4,14 @@
 #include "myArray.h"
 #include "Gauss.h"
 
-
 using namespace std;
 
 int main(int argc, char *argv[])
 {
 	int dimNum = 0;
 	Matrix< double> my_matrix;
-	MyArray< double> my_arary, answears_array;
+	Matrix< double> my_tranMatrix;
+	MyArray< double> my_arary, answears_array, answears_array2;
 	Gauss< double> my_gauss;
 	double temp = 0;
 	ifstream in;
@@ -34,9 +34,8 @@ int main(int argc, char *argv[])
 				for (int j = 0 ; j < dimNum ; j++)
 				{
 					in >> temp;
-					my_matrix[j][i] = temp;
+					my_matrix[i][j] = temp;
 				}
-			my_matrix.transpose();
 
 			my_arary.setSize(dimNum);
 			for (int i = 0 ; i < dimNum ; i++)
@@ -46,9 +45,20 @@ int main(int argc, char *argv[])
 			}
 	
 			answears_array.setSize(dimNum);
+			answears_array2.setSize(dimNum);
+			my_tranMatrix.setSize(dimNum);
+
 			answears_array = my_gauss(my_matrix,my_arary);
+			my_tranMatrix = my_matrix * my_matrix.transpose();
+			answears_array2 = my_matrix*answears_array;
+
+
+			//output
 			cout << setprecision(8);
-			cout << answears_array;
+			cout << my_tranMatrix << endl;
+			cout << answears_array<< endl;
+			cout << answears_array2;
+
 		}
 	}
 	return 0;
